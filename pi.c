@@ -24,6 +24,7 @@ void main(){
     //parallel
 
     pi=0;
+    //omp_set_num_threads(4);
     start=omp_get_wtime();
     int size=omp_get_num_threads();
     float thread[size];
