@@ -1,28 +1,33 @@
 //Write a program to calculate n Fibonacci numbers using Parallel Directive. Demonstrate elimination of the race condition using Schedule directive.
 
 #include<stdio.h>
-#include<omp.h>
 #include<stdlib.h>
+#include<omp.h>
 
-long fib(int n){
-    if(n<2)
-    return 1;
-    else
-    return fib(n-1)+fib(n-2);
+
+int fib(int n){
+    int a=0,b=1,c;
+
+    #pragma omp parallel for schedule(static,2)
+        for(int i=0;i<n;i++){
+            c=a+b;
+            a=b;
+            b=c;
+        }
+    
+    return a;
 }
-
 int main(){
 
-    printf("Enter number of fibonnaci numbers to be calculated: ");
-    int n;
-    scanf("%d",&n);
+    int n=7;
+    double start=omp_get_wtime();
 
-    #pragma omp parallel num_threads(n)
-    {
-        int t=omp_get_thread_num();
-        printf("%d:%ld\n",t,fib(t));
-    
+    #pragma omp parallel for
+    for(int i=0;i<n;i++){
+        int t = omp_get_thread_num();
+        printf("thread: %d fib(%d) = %d\n",t,i,fib(i));
     }
-    return 0;
 
+    double end=omp_get_wtime();
+    printf("Time taken: ",end-start);
 }
