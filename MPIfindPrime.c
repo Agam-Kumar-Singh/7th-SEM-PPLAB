@@ -1,3 +1,5 @@
+//Write a MPI program to generate all prime numbers till ‘n’  (n being user input).
+
 #include<stdio.h>
 #include<mpi.h>
 
