@@ -19,14 +19,14 @@ int main(int argc,char *argv[])
         dest=1;
         source=1;
         rc=MPI_Send(&outmsg,strlen(outmsg),MPI_CHAR,dest,tag1,MPI_COMM_WORLD);
-        rc==MPI_Recv(&inmsg,strlen(outmsg),MPI_CHAR,dest,tag2,MPI_COMM_WORLD,&stat);
+        rc=MPI_Recv(&inmsg,strlen(outmsg),MPI_CHAR,dest,tag2,MPI_COMM_WORLD,&stat);
     }
     else if(rank==1)
     {
         dest=0;
         source=0;
         rc=MPI_Send(&outmsg,strlen(outmsg),MPI_CHAR,dest,tag1,MPI_COMM_WORLD);      //To remove deadlock
-        rc==MPI_Recv(&inmsg,strlen(outmsg),MPI_CHAR,dest,tag2,MPI_COMM_WORLD,&stat);//Simply interchange tag1 and tag2 in these two lines
+        rc=MPI_Recv(&inmsg,strlen(outmsg),MPI_CHAR,dest,tag2,MPI_COMM_WORLD,&stat);//Simply interchange tag1 and tag2 in these two lines
     }
     rc=MPI_Get_count(&stat,MPI_CHAR,&count);
     printf("Task %d, received %d char(s) task from %d with tag %d and msg is %s\n",rank,count,stat.MPI_SOURCE,stat.MPI_TAG,inmsg);
