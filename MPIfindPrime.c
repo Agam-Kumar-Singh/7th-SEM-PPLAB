@@ -31,8 +31,8 @@ int main(int argc,char *argv[]){
     globaldata[i]=i+1;
   }
 
-  int itern=(n/size)+1;
-  for(int i=(rank*itern);i<=((rank+1)*itern);i++){
+  int itern=(n/size);
+  for(int i=(rank*itern)+1;i<=((rank+1)*itern);i++){
     
     if(isPrime(globaldata[i]))
       printf("%d ",globaldata[i]);
