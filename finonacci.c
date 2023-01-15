@@ -10,9 +10,11 @@ int fib(int n){
 
     #pragma omp parallel for schedule(static,2)
         for(int i=0;i<n;i++){
+            #pragma omp critical{
             c=a+b;
             a=b;
             b=c;
+        }
         }
     
     return a;
